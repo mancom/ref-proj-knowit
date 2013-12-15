@@ -1,0 +1,27 @@
+{"comments":
+[{
+"id":"100007",
+"name":"Kaypro II",
+"face":"p4.jpg",
+"time":1375254731000,
+"content":"I'm using fragments to build an android app for API15."
+},{
+"id":"100009",
+"name":"Avi Turner",
+"face":"p6.jpg",
+"time":1375254731000,
+"content":"The Situation After reading Unix Socket Programming, W.Richard Steven, I'm writing a P2P program in which the main thread creates thread pool in which five sub-threads live."
+},{
+"id":"100011",
+"name":"John Doe",
+"face":"p8.jpg",
+"time":1375254731000,
+"content":":) no, no!"
+},{
+"id":"100014",
+"name":"arby",
+"face":"p11.jpg",
+"time":1375254731000,
+"content":"I have 2 buttons created in code behind ,I am trying to draw a line that connects them by getting the button coordinates, but it doesn't work the way that I wanted , I am new to this"
+}
+]}

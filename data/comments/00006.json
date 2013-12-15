@@ -1,0 +1,9 @@
+{"comments":
+[{
+"id":"100015",
+"name":"AmirHossein Mehrvarzi",
+"face":"p12.jpg",
+"time":1375254731000,
+"content":"Is it possible to mock a extension method for HttpRequestBase in unit test? I've got a method extends HttpRequestBase, which is checkSomething(string str) in one of the business logic code"
+}
+]}

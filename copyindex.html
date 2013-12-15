@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html ng-app>
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
+        <script src="js/vendor/jquery-2.0.3.min.js"></script>
+        <script src="js/vendor/jquery.mobile-1.3.1.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script>
+        <script src="js/vendor/angular-mobile.min.js"></script>
+				<script src="js/knowitReaderCtrl.js"></script>
+
+        <script>
+            $(document).ready(function(){
+                  $("#holdPopUp").bind("swipe", function(){
+                      alert("swipe popup") ;
+                  })
+                $(document).ready(function(){
+                    $(".tap-hold-test").bind("taphold", function(event) {
+                        $(this).html("Tapped and held");
+                    });
+                    $(".tap-hold-test").bind("swipe", function(event) {
+                        $(this).html("swipe");
+                        $.mobile.changePage("#holdPopUp", "slideup");
+                    });
+                });
+            });
+            $(document).ready(function() {
+						  $('table.highchart').highchartTable();	
+						});
+        </script>
+        <style type="text/css">
+        	.headerInfo
+        	{
+        		
+        	}
+        	.searchInput
+        	{ 
+        		minWidth:50px;
+        	}
+        	.header
+        	{
+        		background : #404040;
+        	}
+        	.listItem
+        	{
+        		background : #888888;    
+        		width:100px;
+        		height:30px;
+        	}
+        	.tap-hold-test
+        	{
+        		background : #f0f0f0;     
+        		height:55px;  
+        		minHeight:0px; 		
+        		overflow:hidden;
+        		white-space:nowrap;
+        		text-overflow:ellipsis;
+        		border-style:none none dashed none;
+        		border-width:1;
+        	}
+        	.textSummary
+        	{
+        		position:absolute;
+        		left:60; right:100;
+        		top:40px;
+        		overflow:hidden; margin:0px;
+        		text-overflow:ellipsis;        		
+        	}
+        	.list-item-block-a { position:absolute; width: 170px; margin:0px; height:30px; top:0px;} 
+				  .list-item-block-b { position:absolute; left: 75px; right:10px; height:100%; margin:0px; }
+				  
+        </style>
+    </head>
+<body ng-controller="knowitReaderCtrl">
+<div data-role="page">
+    <div data-role="content">
+        <ul data-role="listview" id="my-list" data-filter="true" data-filter-placeholder="Search..." data-split-icon="gear" data-split-theme="d">
+        	  <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">2</span></li>
+        	  <li class="tap-hold-test">
+        	  	 <img src="img/type_db.PNG" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:28px; height:28px; padding:0px;"/>
+					　　 <a href="lists-split-purchase.html">
+					　　 <p style="position:absolute; top:0px; left:40px; right:100px; margin:0; font-size:12px;"><strong>Author John</strong></p>
+							 <p style="position:absolute; top:17px; left:40px; right:50px; margin:0; font-size:11px;"><strong>Stephen Weber</strong></p>
+					　　 <p style="position:absolute; top:38px; left:10px; right:50px; color:#603000; font-size:11px;">Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the Jquery team.</p>
+					　　 <p style="position:absolute; top:0px; margin:0px; right:50px;"><strong>6:24</strong>PM</p></a>				
+　　					 <a href="" data-rel="dialog" data-transition="slideup"></a>
+         	  </li>
+        	  <li class="tap-hold-test">
+        	  	 <img src="img/type_server.PNG" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:28px; height:28px; padding:0px;"/>
+					　　 <a href="lists-split-purchase.html">
+					　　 <p style="position:absolute; top:0px; left:40px; right:100px; margin:0; font-size:12px;"><strong>Author John</strong></p>
+							 <p style="position:absolute; top:17px; left:40px; right:50px; margin:0; font-size:11px;"><strong>Stephen Weber</strong></p>
+					　　 <p style="position:absolute; top:38px; left:10px; right:50px; color:#603000; font-size:11px;">Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the Jquery team.</p>
+					　　 <p style="position:absolute; top:0px; margin:0px; right:50px;"><strong>6:24</strong>PM</p></a>				
+　　					 <a href="" data-rel="dialog" data-transition="slideup"></a>
+         	  </li>
+        	  <li data-role="list-divider">Friday, October 8, 2010 <span class="ui-li-count">12</span></li>
+        	<li class="tap-hold-test" ng-repeat="article in articles">
+            
+            	 <div style="position:absolute; top:-1px; left:-1px; right:0px; bottom:0px; ">
+            	 		<hr style="opacity:0.04; position:absolute; top:8px; left:40px; right:100px; ">
+            	 		<hr style="opacity:0.04; position:absolute; top:25px; left:40px; right:100px; ">
+            	 	</div>
+            	 <div style="background:{{article.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; bottom:0px; ">
+            	 	</div>
+        	  	 <img ng-src="{{article.typeImg}}" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:28px; height:28px; padding:0px;"/>
+					　　 <a href="#articlePage">
+					　　 <p style="position:absolute; top:0px; left:40px; right:100px; margin:0; font-size:12px; text-shadow: 0px 0px"><strong>{{article.author}}</strong></p>
+							 <p style="position:absolute; top:17px; left:40px; right:50px; margin:0; font-size:11px; text-shadow: 0px 0px"><strong>{{article.title}}</strong></p>
+					　　 <p style="position:absolute; top:37px; left:10px; right:50px; color:#402000; font-size:10px;">Hey Stephen, if you're available at 10am tomorrow, we've got a meeting with the Jquery team.</p>
+					　　 <p style="position:absolute; top:0px; margin:0px; right:50px;"><strong>{{article.createdTime}}</strong></p></a>				
+　　					 <a href="" data-rel="dialog" data-transition="slideup"></a>
+							
+            
+            </li>
+        </ul>
+
+
+
+        <a href="#dialogPopUp" data-rel="dialog" data-role="button">Open dialog</a>        
+        
+
+    </div><!-- /content -->
+    <div data-role="footer"><h4>Page Footer</h4></div><!-- /footer -->
+</div><!-- /page -->
+
+<div data-role="page" id="articlePage">
+	
+	
+    <div data-role="header">
+        <h1>article Title</h1>
+    </div><!-- /header -->
+    <div data-role="content">
+      <article contenteditable="true">
+7 Jun 2010. Just after the announcement of the new iPhone 4 at WWDC, 
+Apple announced the release of Safari 5 for Windows and Mac......
+
+fgjgrtjsj
+rstjsrjtrsj
+jrsjsrjtsrtjrtsjjrjjrjtsjsrtjrsjrtrjrtjsr
+srtjsrjrtjrsjstjjjsrtjsrtjrstjsrtjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjsrtjsrjtrjjs
+
+srtjtsrjrjsrrfjrjsrtjrtjrstjsrjsrjstrjsrtjsrtjsrtjsrjsrjsjstjsrjsrjsrtjsrjsrjsrjtsrjrj
+sfjs
+f
+
+
+jfsjsfjfsjfsjfjfjfjfsj
+fssfjsfjsfjsfjfjfjfsjsfjsfjfsjsfjsfjsfsfsfjsff
+
+			</article>
+    </div><!-- /content -->
+</div><!-- /page -->
+
+<div data-role="page" id="dialogPopUp">
+    <div data-role="header">
+        <h1>Dialog Title</h1>
+    </div><!-- /header -->
+    <div data-role="content">
+        This is a dialog box
+    </div><!-- /content -->
+    <div data-role="footer">
+        <h4>Additional Footer information</h4>
+    </div><!-- /footer -->
+</div><!-- /page -->
+<div data-role="page" id="holdPopUp">
+    <div data-role="header">
+        <h1>Dialog Title</h1>
+    </div><!-- /header -->
+    <div data-role="content">
+        hold on the button!
+    </div><!-- /content -->
+    <div data-role="footer">
+        <h4>Additional Footer information</h4>
+    </div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>

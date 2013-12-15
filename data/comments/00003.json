@@ -1,0 +1,9 @@
+{"comments":
+[{
+"id":"100008",
+"name":"Brent",
+"face":"p5.jpg",
+"time":1375254731000,
+"content":"querySelector() returns undefined string when trying to access numeric value as the ID of an element. I would like to use querySelector() method over others, because it is more flexible. Any solutions to this problem would be a great help."
+}
+]}

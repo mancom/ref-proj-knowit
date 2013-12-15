@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myIndex">
+    <head>
+        <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css">
+        <script src="js/vendor/jquery-2.0.3.min.js"></script>
+        <script src="js/vendor/jquery.mobile-1.3.1.min.js"></script>
+        <script src="js/vendor/angular.min.js"></script>
+				<script src="js/util.js"></script>
+				<script src="js/knowitReaderCtrl.js"></script>
+				<script src="js/html2canvas.js"></script>
+				<script src="chart/RGraph.common.core.js"></script>
+				<script src="chart/RGraph.common.key.js"></script>
+				<script src="chart/RGraph.pie.js"></script>
+
+        <script>
+
+
+        </script>
+        <style type="text/css">
+        	.headerInfo
+        	{
+        		
+        	}
+        	.searchInput
+        	{ 
+        		minWidth:50px;
+        	}
+        	.header
+        	{
+        		background : #404040;
+        	}
+        	.listItem
+        	{
+        		background : #888888;    
+        		width:100px;
+        		height:30px;
+        	}
+        	.tap-hold-test
+        	{
+        		background : #f0f0f0;     
+        		height:55px;  
+        		minHeight:0px; 		
+        		overflow:hidden;
+        		white-space:nowrap;
+        		text-overflow:ellipsis;
+        		border-style:none none dashed none;
+        		border-width:1;
+        	}
+        	.textSummary
+        	{
+        		position:absolute;
+        		left:60; right:100;
+        		top:40px;
+        		overflow:hidden; margin:0px;
+        		text-overflow:ellipsis;        		
+        	}
+        	.list-item-block-a { position:absolute; width: 170px; margin:0px; height:30px; top:0px;} 
+				  .list-item-block-b { position:absolute; left: 75px; right:10px; height:100%; margin:0px; }
+				  
+				  .page-content {
+				  	transition: opacity 1s;
+				  }
+				  
+				  .ui-icon-bycategory {background:url('img/btn_by_category.png') no-repeat 0 0;}
+				  .ui-icon-bydate {background:url('img/btn_by_date.png') no-repeat 0 0;}
+				  .ui-icon-bykey {background:url('img/btn_by_key.png') no-repeat 0 0;}
+				  .ui-icon-bysearch {background:url('img/btn_search.png') no-repeat 0 0;}
+				  .ui-icon-favorite {background:url('img/btn_favorite.png') no-repeat 0 0;}
+				  .ui-bar-g { 
+				   border: 1px solid #770000; 
+				   background:#ff0000; 
+				   color:white; 
+				   font-weight: bold; 
+				   text-shadow: 0 -1px 1px #AA0000; 
+				   background-image: -moz-linear-gradient(top, #2A2A2A, #bb0000); 
+				   background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#2A2A2A),color-stop(1,#bb0000));
+				   -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#2A2A2A', EndColorStr='#ff1111')"; 
+				   }				  
+					.ui-bar-h {/* not used yet */
+						border: 1px solid 		#333 /*{a-bar-border}*/;
+						background: 			#111 /*{a-bar-background-color}*/;
+						color: 					#fff /*{a-bar-color}*/;
+						font-weight: bold;
+						text-shadow: 0 /*{a-bar-shadow-x}*/ -1px /*{a-bar-shadow-y}*/ 0 /*{a-bar-shadow-radius}*/ #000 /*{a-bar-shadow-color}*/;
+						background-image: -webkit-gradient(linear, left top, left bottom, from( #3c3c3c /*{a-bar-background-start}*/), to( #111 /*{a-bar-background-end}*/)); /* Saf4+, Chrome */
+						background-image: -webkit-linear-gradient( #3c3c3c /*{a-bar-background-start}*/, #111 /*{a-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
+						background-image:    -moz-linear-gradient( #3c3c3c /*{a-bar-background-start}*/, #111 /*{a-bar-background-end}*/); /* FF3.6 */
+						background-image:     -ms-linear-gradient( #3c3c3c /*{a-bar-background-start}*/, #111 /*{a-bar-background-end}*/); /* IE10 */
+						background-image:      -o-linear-gradient( #3c3c3c /*{a-bar-background-start}*/, #111 /*{a-bar-background-end}*/); /* Opera 11.10+ */
+						background-image:         linear-gradient( #3c3c3c /*{a-bar-background-start}*/, #111 /*{a-bar-background-end}*/);
+					}
+					.ui-bar-i { 
+						border: 1px solid 		#456f9a /*{b-bar-border}*/;
+						background: 			#5e87b0 /*{b-bar-background-color}*/;
+						color: 					#fff /*{b-bar-color}*/;
+						font-weight: bold;
+						text-shadow: 0 /*{b-bar-shadow-x}*/ 1px /*{b-bar-shadow-y}*/ 0 /*{b-bar-shadow-radius}*/ #3e6790 /*{b-bar-shadow-color}*/;
+						background-image: -webkit-gradient(linear, left top, left bottom, from( #87A3BE /*{b-bar-background-start}*/), to( #87A3BE /*{b-bar-background-end}*/)); /* Saf4+, Chrome */
+						background-image: -webkit-linear-gradient( #87A3BE /*{b-bar-background-start}*/, #87A3BE /*{b-bar-background-end}*/); /* Chrome 10+, Saf5.1+ */
+						background-image:    -moz-linear-gradient( #87A3BE /*{b-bar-background-start}*/, #87A3BE /*{b-bar-background-end}*/); /* FF3.6 */
+						background-image:     -ms-linear-gradient( #87A3BE /*{b-bar-background-start}*/, #87A3BE /*{b-bar-background-end}*/); /* IE10 */
+						background-image:      -o-linear-gradient( #87A3BE /*{b-bar-background-start}*/, #87A3BE /*{b-bar-background-end}*/); /* Opera 11.10+ */
+						background-image:         linear-gradient( #87A3BE /*{b-bar-background-start}*/, #87A3BE /*{b-bar-background-end}*/);
+					}
+					.moveLeft{
+						w:10;
+					}
+        </style>
+    </head>
+<body ng-controller="knowitReaderCtrl">
+<div id="maskID" style="position:fixed; z-index:1000; transition: all 2s; x:0; y:0"><canvas id="pageImage" x="0" y="0" width="0" height="0"></canvas></div>
+<div data-role="page" id="mainPage">
+		<div data-role="header" data-position="fixed" data-theme="g" data-add-back-btn="true">
+			<a data-role="button" data-icon="back" ng-click="goback()" data-theme="a">back</a>
+			<a href="" data-role="button" data-icon="edit" data-iconpos="notext" data-inline="true" ng-click="gotoTextInputScreen()"></a>			
+			<h1>Know IT Reader</h1></div>
+    <div data-role="content" >
+    	
+
+    	<!-- ############  listbydate ############## -->
+    	<div class="page-content" style="opacity:{{showon=='listbydate'?1.0:0.0}}" ng-show="showon=='listbydate'" >
+        <ul data-role="listview" id="my-list" data-filter="true" data-filter-placeholder="Filter..." data-split-icon="gear" data-split-theme="d">
+        	<li data-role="list-divider" data-theme="i">{{todayStr}}<span class="ui-li-count">{{todayArticlesNum}}</span></li>
+        	<li class="tap-hold-test" ng-repeat="article in todayArticles" draggable="false">            
+            	 <div style="position:absolute; top:0px; left:0px; right:0px; height:55px; border-top:1px dashed #ffffff; ">
+            	 	  <hr style="opacity:0.08; position:absolute; top:10px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+            	 	  <hr style="opacity:0.08; position:absolute; top:25px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+            	 	</div>
+            	 <div style="background:{{article.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; height:55px;  border-top:1px dashed #000000;">
+            	 	</div>
+               <img ng-src="{{article.typeImg}}" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:30px; height:30px; padding:0px;"/>
+               <a href="" ng-click="gotoArticleScreen('{{article.articleId}}', '{{article.author}}', '{{article.source}}', '{{article.created}}', '{{article.type}}', '{{article.isFavorite}}', '{{article.likeNum}}', '{{article.commentNum}}')">
+               <p style="position:absolute; top:3px; left:40px; right:100px; margin:0; font-size:10px; text-shadow: 0px 0px">{{article.author}}</p>
+               <p style="position:absolute; top:18px; left:40px; right:50px; margin:0; font-size:11px; text-shadow: 0px 0px"><strong>{{article.title}}</strong></p>
+               <p style="position:absolute; top:40px; left:10px; right:50px; color:#402000; font-size:10px;">{{article.leading}}</p>
+               <p style="position:absolute; top:0px; margin:0px; right:50px; font-size:11px;">{{article.createdTimeString}}</p></a>
+            </li>
+        	<li data-role="list-divider" data-theme="i">{{yesterdayStr}}<span class="ui-li-count">{{yesterdayArticlesNum}}</span></li>
+        	<li class="tap-hold-test" ng-repeat="article in yesterdayArticles">            
+           	 <div style="position:absolute; top:0px; left:0px; right:0px; height:55px; border-top:1px dashed #ffffff; ">
+            	 	  <hr style="opacity:0.08; position:absolute; top:10px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+            	 	  <hr style="opacity:0.08; position:absolute; top:25px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+            	 	</div>
+            	 <div style="background:{{article.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; height:55px;  border-top:1px dashed #000000;">
+            	 	</div>
+        	  	 <img ng-src="{{article.typeImg}}" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:30px; height:30px; padding:0px;"/>
+               <a href="" ng-click="gotoArticleScreen('{{article.articleId}}', '{{article.author}}', '{{article.source}}', '{{article.created}}', '{{article.type}}', '{{article.isFavorite}}', '{{article.likeNum}}', '{{article.commentNum}}')">
+               <p style="position:absolute; top:3px; left:40px; right:100px; margin:0; font-size:10px; text-shadow: 0px 0px">{{article.author}}</p>
+               <p style="position:absolute; top:18px; left:40px; right:50px; margin:0; font-size:11px; text-shadow: 0px 0px"><strong>{{article.title}}</strong></p>
+               <p style="position:absolute; top:40px; left:10px; right:50px; color:#402000; font-size:10px;">{{article.leading}}</p>
+               <p style="position:absolute; top:0px; margin:0px; right:50px; font-size:11px;">{{article.createdTimeString}}</p></a>	
+            </li>
+        	<li data-role="list-divider" data-theme="i">{{pastStr}}<span class="ui-li-count">{{pastArticlesNum}}</span></li>
+        	<li class="tap-hold-test" ng-repeat="article in pastArticles">
+           	   <div style="position:absolute; top:0px; left:-1px; right:0px; height:55px;  ">
+            	 	  <hr style="opacity:0.08; position:absolute; top:10px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+            	 	  <hr style="opacity:0.08; position:absolute; top:25px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+            	 	</div>
+            	 <div style="background:{{article.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; height:55px; ">
+            	 </div>
+               <img ng-src="{{article.typeImg}}" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:30px; height:30px; padding:0px;"/>
+               <a href="" ng-click="gotoArticleScreen('{{article.articleId}}', '{{article.author}}', '{{article.source}}', '{{article.created}}', '{{article.type}}', '{{article.isFavorite}}', '{{article.likeNum}}', '{{article.commentNum}}')">
+               <p style="position:absolute; top:3px; left:40px; right:100px; margin:0; font-size:10px; text-shadow: 0px 0px">{{article.author}}</p>
+               <p style="position:absolute; top:18px; left:40px; right:50px; margin:0; font-size:11px; text-shadow: 0px 0px"><strong>{{article.title}}</strong></p>
+               <p style="position:absolute; top:40px; left:10px; right:50px; color:#402000; font-size:10px;">{{article.leading}}</p>
+               <p style="position:absolute; top:0px; margin:0px; right:50px; font-size:11px;">{{article.createdDateString}}</p></a>				
+            </li>
+        </ul>
+    	</div>
+    	
+    	
+    	
+    	<!-- ############  listbycategory ############## -->
+    	<div class="page-content" style="opacity:{{showon=='listbycategory'?1.0:0.0}}" ng-show="showon=='listbycategory'">
+
+    		<ul data-role="listview" id="my-list" data-split-icon="gear">
+        	<li data-role="list-divider" data-theme="i">Category</li>
+        </ul>
+    		<div >
+    			<canvas id="pie" y="100" ng-click="" height="260px" clear="both"></canvas>
+    		</div>    		
+    		<p>{{clicktype}}</p>     		
+
+    				
+    		<ul data-role="listview" id="category-list" data-split-icon="gear">
+    			<li data-role="list-divider" data-theme="i">Legend</li>
+    			<li class="tap-hold-test" ng-repeat="articleType in articleTypes" style="margin:0px; padding:0px;">
+    				<img ng-src="img/type_{{articleType.typeID}}.PNG" style="float:left;position:absolute; top:0px; left:5px; bottom:10px; margin:0px; width:20px; height:20px; padding:0px; border:1px solid {{articleType.color}}; border-right:20px solid {{articleType.color}}; "/>
+    				<a href="" ng-click="drillDownCategory('{{articleType.typeID}}')" style="margin:14px 0px 0px 55px; padding:0px;">    					
+    					{{articleType.typeLabel}} : {{articleType.count}}
+    				</a>
+    			</li>
+    		</ul> 		
+    	</div>
+    	
+    	
+    	<!-- ############  listbykeyword ############## -->
+    	<div class="page-content" id="keywordScreen" style="opacity:{{showon=='listbykeyword'?1.0:0.0}}" ng-show="showon=='listbykeyword'" style="word-wrap:normal; min-width:100px;">
+				  <div ng-click="gotoSearchResult()" ng-repeat="keyword in keywords" style="display:inline;">
+					  <div style="display:inline; word-wrap:normal; border-radius:{{keyword.radiusSize}}px; background:{{keyword.backgroundColor}}; color:{{keyword.color}}; box-shadow: 1px 1px 1px {{keyword.boxShadowColor}}; text-shadow: 0px 0px 0px; font-size:{{keyword.fontSize}}px; padding:0px 5px 0px 5px; margin:10px 2px 10px 2px;">{{keyword.word}}</div>
+					  <div style="display:inline;"> </div>
+				  </div>
+    	</div>
+     	
+    	<!-- ############  favoriters ############## -->
+    	<div class="page-content" style="opacity:{{showon=='favoriters'?1.0:0.0}}" ng-show="showon=='favoriters'">
+        <ul data-role="listview" id="my-list" data-filter="true" data-filter-placeholder="Filter..." data-split-icon="gear" data-split-theme="d">
+        	<li data-role="list-divider" data-theme="i">My Favoriters<span class="ui-li-count">{{favoriteNum}}</span></li>
+        	<li class="tap-hold-test" ng-repeat="article in articles">            
+               <div style="position:absolute; top:0px; left:0px; right:0px; height:55px;">
+                  <hr style="opacity:0.08; position:absolute; top:10px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+                  <hr style="opacity:0.08; position:absolute; top:25px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+               </div>
+               <div style="background:{{article.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; height:55px;">
+               </div>
+               <img ng-src="{{article.typeImg}}" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:30px; height:30px; padding:0px;"/>
+               <a href="" ng-click="gotoArticleScreen('{{article.articleId}}', '{{article.author}}', '{{article.source}}', '{{article.created}}', '{{article.type}}', '{{article.isFavorite}}', '{{article.likeNum}}', '{{article.commentNum}}')">
+               <p style="position:absolute; top:3px; left:40px; right:100px; margin:0; font-size:10px; text-shadow: 0px 0px">{{article.author}}</p>
+               <p style="position:absolute; top:18px; left:40px; right:50px; margin:0; font-size:11px; text-shadow: 0px 0px"><strong>{{article.title}}</strong></p>
+               <p style="position:absolute; top:40px; left:10px; right:50px; color:#402000; font-size:10px;">{{article.leading}}</p>
+               <p style="position:absolute; top:0px; margin:0px; right:50px; font-size:11px;">{{article.createdDateString}}</p></a>	           
+            </li>
+        </ul>
+    	</div>   	
+     	
+    	<!-- ############  who like it ############## -->
+    	<div style="opacity:{{showon=='wholikeit'?1.0:0.0}};" ng-show="showon=='wholikeit'">
+        <ul data-role="listview" data-split-theme="d" class="ui-bar">
+        	<li data-role="list-divider" data-theme="i">Who like it</li>
+        	<li ng-repeat="who in whosLike" style=" border-style:none none dashed none; height:15px; minHeight:10px;">            
+               <div style="background:{{who.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; bottom:0px;"></div>
+               <div style="position:absolute; top:-1px; left:-1px; right:0px; bottom:0px;">
+                 <img ng-src="img/faces/{{who.face}}" style="background:#888888; float:left; position:absolute; top:2px; left:5px; margin:0px; width:30px; height:30px; padding:0px;"/>
+               </div>
+               <p style="position:absolute; top:3px; left:40px; right:100px; margin:0; font-size:14px; text-shadow: 0px 0px">{{who.name}}</p>
+               <p style="position:absolute; top:20px; left:40px; right:50px; margin:0; font-size:10px; color:#888888; text-shadow: 0px 0px">{{who.timeString}}</p>
+            </li>
+        </ul>
+    	</div>     	
+     	
+    	<!-- ############  comments ############## -->
+    	<div style="opacity:{{showon=='comments'?1.0:0.0}};" ng-show="showon=='comments'">
+        <ul data-role="listview" data-split-theme="d" class="ui-bar">
+        	<li data-role="list-divider" data-theme="i">Comments</li>
+        	<li ng-repeat="comment in comments" style="border-style:none none dashed none; minHeight:10px;">            
+               <div style="background:{{comment.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; bottom:0px;"></div>
+               <div style="position:absolute; top:10px; left:-1px; right:0px; bottom:0px;">
+                 <img ng-src="img/faces/{{comment.face}}" style="background:#888888; float:left; position:absolute; top:2px; left:5px; margin:0px; width:30px; height:30px; padding:0px;"/>
+               </div>
+               <p style="height:17px; margin:0px; font-size:14px; text-shadow: 0px 0px; padding-left:30px;">{{comment.name}}</p>
+               <p style="height:20px; margin:0px; font-size:10px; color:#888888; text-shadow: 0px 0px; padding-left:30px;">{{comment.timeString}}</p>
+               <div style="border-width:1px; border-style:solid solid solid solid; minHeight:10px; padding:5px; box-shadow: 2px 2px 2px #87A3BE;"><p style="white-space:normal;overflow:visible; word-wrap: break-word;">{{comment.content}}</p></div>
+            </li>
+          <li data-role="list-divider" data-theme="i" ><img ng-src="img/faces/my.jpg" style="width:25px; height:25px; margin:5px;"/><h3 style="padding-left:25px;">My comment</h3></li>
+        </ul>
+      	<div style="margin-top:20px; background:#cccccc;">
+	        <div style="margin-left:0px; border-width:1px; border-style:solid solid solid solid; minHeight:10px; padding:5px; box-shadow: 2px 2px 2px #87A3BE;"><article contenteditable="true" style="border:1px solid #888888; height:90px; overflow:scroll; background:#ffffff;"></article></div>
+      	</div>
+      	<button>Submit</button>
+    	</div> 
+    	
+    	<!-- ############  advancesearch ############## -->
+    	<div class="page-content" id="advancesearch-screen" style="opacity:{{showon=='advancesearch'?1.0:0.0}}" ng-show="showon=='advancesearch'">
+    		<input ng-model="queryword" placeholder="Search">
+
+    		<div data-role="collapsible" data-mini="true" data-theme="b" data-content-theme="b">
+    		  	<h3>Advance Search</h3>  					 	
+    		  	<p>Category	
+    		  	<select ng-model="orderProp" data-theme="c">
+							<option value="name">Alphabetical</option>
+							<option value="age">Newest</option>
+						</select></p>
+    		  	<p>From<input ng-model="queryword"></p>
+    		  	<p>To<input ng-model="queryword"></p>		
+				</div>
+    		<p><a href="" data-role="button" data-icon="search" ng-click="startSearch()">Search</a></p>
+    	</div>
+    	
+    	
+    	
+    	<!-- ############  searchResult ############## -->
+    	<div class="page-content" style="opacity:{{showon=='searchResult'?1.0:0.0}}" ng-show="showon=='searchResult'">
+        <ul data-role="listview" id="my-list" data-filter="true" data-filter-placeholder="Filter..." data-split-icon="gear" data-split-theme="d">
+        	<li data-role="list-divider" data-theme="i">Search Result<span class="ui-li-count">{{searchResultNum}}</span></li>
+        	<li class="tap-hold-test" ng-repeat="article in articles">            
+               <div style="position:absolute; top:0px; left:0px; right:0px; height:55px; ">
+                 <hr style="opacity:0.08; position:absolute; top:10px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+                 <hr style="opacity:0.08; position:absolute; top:25px; left:40px; right:50px; border:1px 0px 0px 0px solid #000000;">
+               </div>
+               <div style="background:{{article.bg}}; opacity:0.2; position:absolute; top:-1px; left:-1px; right:0px; height:55px; ">
+               </div>
+               <img ng-src="{{article.typeImg}}" style="float:left;position:absolute; top:2px; left:5px; margin:0px; width:30px; height:30px; padding:0px;"/>
+               <a href="" ng-click="gotoArticleScreen('{{article.articleId}}', '{{article.author}}', '{{article.source}}', '{{article.created}}', '{{article.type}}', '{{article.isFavorite}}', '{{article.likeNum}}', '{{article.commentNum}}')">
+               <p style="position:absolute; top:3px; left:40px; right:100px; margin:0; font-size:10px; text-shadow: 0px 0px">{{article.author}}</p>
+               <p style="position:absolute; top:18px; left:40px; right:50px; margin:0; font-size:11px; text-shadow: 0px 0px"><strong>{{article.title}}</strong></p>
+               <p style="position:absolute; top:40px; left:10px; right:50px; color:#402000; font-size:10px;">{{article.leading}}</p>
+               <p style="position:absolute; top:0px; margin:0px; right:50px; font-size:11px;">{{article.createdDateString}}</p></a>	           
+            </li>
+        </ul>
+    	</div>
+        	
+    	
+    	<!-- ############  Article Screen ############## -->
+			<div class="page-content" style="opacity:{{showon=='article'?1.0:0.0}}" ng-show="showon=='article'">								
+				<p style="position:absolute; top:47px; left:15px; right:100px; margin:0; font-size:10px;"><img ng-src="{{article.categoryImg}}" style="width:20px; height:20px; padding:0px;"/> {{article.categoryString}}</p>
+				<a href="" style="position:absolute; top:47px; right:15px; margin:0; font-size:10px;" ng-click="clickOnComments()"><img src="img/btn_discuss.png" style="width:20px; height:20px; padding:0px;"/> {{article.commentNum}} Comments</a>
+				
+				<h3>{{article.title}} <img ng-src="img/btn_star{{(article.isFavorite=='true'?'_selected':'')}}.png" ng-click="clickOnFavorite()" style="width:25px; height:25px; padding:0px; padding-left:5px;"/> <a href="" style="font-size:12px;" ng-click="clickOnWhoLikeIt()"> who like it ({{article.likeNum}})</a></h3>
+				<div style="border-bottom:2px solid #bb0000; font-size:12px;">by <strong style="color:#0066BB">{{article.author}}</strong> on {{article.createdTimeString}}</div>
+				
+				<article id="pagecontenthtml" style="text-align:justify; font-size:12px;"></article>
+				<a href="{{article.fromSource}}" style="font-size:11px; text-shadow: 0px 0px;"><strong>from </strong><i>{{article.fromSource}}</i>
+				</a>
+			</div>
+			
+			<!-- ############  Text Input Screen ############## -->
+			<div class="page-content" style="opacity:{{showon=='textInput'?1.0:0.0}}" ng-show="showon=='textInput'">
+				<h1>Article Input</h1>
+				<article id="inputTextArea" contenteditable="true" ng-keypress="inputTextChange()" style="border:1px solid red;">
+					 
+				</article>
+				<div style="border:1px solid red;">{{inputHtml}}</div>
+				<div style="border:1px solid red;">{{inputText}}</div>
+				
+			<div><button onclick="copyHtml()">Copy html</button><button onclick="copyText()">Copy Text</button></div>		
+
+			</div>
+
+    </div><!-- /content -->
+    <div data-role="footer" data-position="fixed" data-theme="a" class="ui-bar" style="padding:0px; margin:0px;">
+    	<h1 style=" margin:0px;"><div data-role="controlgroup" class="footerGroup" data-type="horizontal" data-mini="true" style="padding:0px; margin:0px;">			  
+			  <a id="goto_listbydate" href="" data-role="button" data-icon="bydate" data-iconpos="top" data-inline="true" ng-click="gotoListByDate()" style="width:50px;"></a>
+			  <a id="goto_listbycategory" href="" data-role="button" data-icon="bycategory" data-iconpos="top" data-inline="true" ng-click="gotoListByCategory()" style="width:50px;"></a>
+			  <a id="goto_listbykeyword" href="" data-role="button" data-icon="bykey" data-iconpos="top" data-inline="true" ng-click="gotoListBykeyword()" style="width:50px;"></a>
+			  <a id="goto_advancesearch" href="" data-role="button" data-icon="bysearch" data-iconpos="top" data-inline="true" ng-click="gotoAdvanceSearch()" style="width:50px;"></a>
+			  <a id="goto_favoriters" href="" data-role="button" data-icon="favorite" data-iconpos="top" data-inline="true" ng-click="gotoFavoriters()" style="width:50px;"></a>			  
+			  <a id="goto_listbykeyword" href="" data-role="button" data-icon="refresh" data-iconpos="top" data-inline="true" ng-click="refresh()" style="width:50px;"></a>
+			</div></h1>
+    </div><!-- /footer -->
+</div><!-- /page -->
+</body>
+</html>

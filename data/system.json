@@ -1,0 +1,4 @@
+{
+"articleType":[{"typeID":"TYPE1", "typeLabel":"Development", "count":3},{"typeID":"TYPE2", "typeLabel":"Architecture & Design", "count":5},{"typeID":"TYPE3", "typeLabel":"Process & Practices", "count":2},{"typeID":"TYPE4", "typeLabel":"Operations & Infrastructure", "count":1},{"typeID":"TYPE5", "typeLabel":"Enterprise Architecture", "count":1}],
+"systemTimeMS":1375254731000
+}

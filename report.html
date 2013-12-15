@@ -1,0 +1,57 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>html5 实现报表</title>
+<script type="text/javascript" src="chart/RGraph.common.core.js"></script>
+<script type="text/javascript" src="chart/RGraph.common.key.js"></script>
+<script type="text/javascript" src="chart/RGraph.bar.js"></script>
+<script type="text/javascript" src="chart/RGraph.pie.js"></script>
+<script type="text/javascript" src="chart/RGraph.line.js"></script>
+<script type="text/javascript" src="chart/chart.js"></script>
+<style>
+div {
+display: block;
+background: #fcfcfc;
+border: 1px solid silver;
+margin-top: 10px;
+}
+button{
+width: 100px;
+height: 30px;
+border-radius:3px;
+background:#36BF36;
+box-shadow: 1px 1px 5px #000;
+text-shadow: 1px 1px 5px #fff;
+font-size: 14px;
+border: none;
+}
+button:hover{
+background:#8FBC8F;
+color: #fff;
+}
+</style>
+<script>
+
+</script>
+</head>
+<body>
+<div>
+<button onclick="drawpie()">绘制pie</button>
+<button onclick="cleanchart('pie')">清除</button>
+<textarea id="disp" rows="3" cols="30"></textarea>
+<canvas id="pie" width="500px" height="300px"></canvas>
+</div>
+<div>
+<button onclick="drawline()">绘制line</button>
+<button onclick="cleanchart('line')">清除</button>
+<canvas id="line" width="500px" height="300px"></canvas>
+</div>
+<div>
+<button onclick="drawbar()">绘制bar</button>
+<button onclick="cleanchart('bar')">清除</button>
+<canvas id="bar" width="500px" height="300px"></canvas>
+</div>
+
+</body>
+</html>
